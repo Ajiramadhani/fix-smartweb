@@ -44,9 +44,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <center>
-                <p class="text-danger" id="pesan"></p>
-            </center>
+
+            <p class="text-danger" id="pesan"></p>
+
             <form action="<?= base_url('tambahan'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
@@ -97,14 +97,11 @@
             url: '<?= base_url() . 'tambahan/tambahkategori' ?>',
             dataType: 'json',
             success: function(hasil) {
-                // console.log(hasil);
                 $("#pesan").html(hasil.pesan);
-
                 if (hasil.pesan == '') {
                     $("#form").modal('hide');
                     ambilData();
-
-                    $("[name='judul_kategori']").val('');
+                    // $("[name='judul_kategori']").val('');
                 }
             }
         });

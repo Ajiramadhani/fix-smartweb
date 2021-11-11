@@ -17,10 +17,10 @@
                 </div>
             </div>
             <!-- <?php endif; ?> -->
-            <a href="#form" class="btn btn-primary mb-3" onclick="submit('tambah')" data-toggle="modal" data-target="#form">Tambah Kategori</a>
+            <a href="#form" class="btn btn-primary mb-3" onclick="submit('tambah')" data-toggle="modal" data-target="#form">Tambah Item</a>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Data Produk</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Data Item Barang</h6>
 
                 </div>
                 <div class="card-body">
@@ -29,7 +29,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nama Produk</th>
+                                    <th>Nama Item</th>
                                     <th>Volume</th>
                                     <th>Satuan</th>
                                     <th>Image</th>
@@ -57,7 +57,7 @@
                         <center>
                             <div class="alert-danger" role="alert" id="pesan"></div>
                         </center>
-                        <form method="post" id="formtambah">
+                        <form action="<?= base_url('produk/tambahproduk'); ?>" method="POST" id="formtambah">
                             <div class="modal-body">
                                 <div class="form-group">
                                     <div class="card bg-danger text-white text-center fade-in" id="eror_nama_produk"></div>
@@ -73,10 +73,10 @@
                                     <div class="card bg-danger text-white text-center fade-in" id="eror_satuan"></div>
                                     <select class="form-control mr-sm-2" name="satuan" id="satuan">
                                         <option value="">--Pilih Satuan--</option>
+                                        <option value="Liter">Liter</option>
+                                        <option value="uF">uF</option>
                                         <option value="Kg">Kg</option>
                                         <option value="Gram">Gram</option>
-                                        <option value="Liter">Liter</option>
-                                        <option value="Ml">Ml</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -99,7 +99,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                                 <button id="btn-ubah" onclick="ubahdata()" class="btn btn-warning">Update</button>
-                                <button id="btn-tambah" onclick="tambahdata()" class="btn btn-primary">Tambah</button>
+                                <button type="submit" id="btn-tambah" class="btn btn-primary">Tambah</button>
                                 <!-- <button type="submit" id="btn_upload" name="simpan" class="btn btn-primary">Tambah</button> -->
                             </div>
                         </form>
@@ -133,15 +133,15 @@
             e.preventDefault();
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url('produk/tambahproduk'); ?>",
+                url: "<?= base_url('produk/tambahproduk'); ?>",
                 data: new FormData(this),
                 processData: false,
                 contentType: false,
                 cache: false,
-                // beforeSend: function(hasil) {
-                //     $('#btn-tambah').html('<i class="fas fa-spinner fa-spin"></i> Proses...');
-                //     $('#pesan').html(hasil.pesan);
-                // },
+                beforeSend: function(hasil) {
+                    $('#btn-tambah').html('<i class="fas fa-spinner fa-spin"></i> Proses...');
+                    $('#pesan').html(hasil.pesan);
+                },
                 success: function(hasil) {
                     $('#pesan').html(hasil.pesan);
                     if (hasil.pesan == '') {
@@ -159,6 +159,7 @@
             return false;
         });
     }
+
     // addajax
     ambilData();
 

@@ -10,7 +10,7 @@
             <div class="col-lg-8 pl-2">
                 <?= $this->session->flashdata('sukses'); ?>
             </div>
-            <table class="table table-hover table-responsive">
+            <table class="table text-center table-fixeds table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -20,6 +20,7 @@
                         <th scope="col">Role</th>
                         <th scope="col">Status Akun</th>
                         <th scope="col">Tanggal di Buat</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,9 +31,13 @@
                             <th scope="row"><?= $no++; ?></th>
                             <td><?= $p->name; ?></td>
                             <td><?= $p->email; ?></td>
-                            <td><img width="150px" class="img-responsive" src="<?= base_url('assets/img/profile/') . $p->image; ?>" alt=""></td>
+                            <td><img width="150px" height="150px" class="img-responsive" src="<?= base_url('assets/img/profile/') . $p->image; ?>" alt=""></td>
                             <td><?= $p->role; ?></td>
-                            <td><?= $p->is_active; ?></td>
+                            <td><?php if ($p->is_active == 1) {
+                                    echo '<span class="badge badge-success">Activate</span>';
+                                } else {
+                                    echo '<span class="badge badge-danger">Deactive</span>';
+                                }; ?></td>
                             <td><?= date("d-m-Y H:i:s", $p->date_created); ?></td>
                             <td>
                                 <a class="btn btn-warning btn-sm" href="<?= base_url('admin/user_edit/') . $p->id_user; ?>"><i class="fas fa-pencil-alt"></i> Edit</a>

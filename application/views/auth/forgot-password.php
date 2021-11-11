@@ -4,7 +4,7 @@
 </div>
 </div>
 <div class="container">
-    <div class="row mt-lg-n10 mt-md-n11 mt-n10">
+    <div class="row mt-lg-n10 mt-md-n11 mt-n10 pb-10">
         <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
             <div class="card z-index-0">
                 <div class="card-header text-center pt-4">

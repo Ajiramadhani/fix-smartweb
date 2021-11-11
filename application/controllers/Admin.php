@@ -142,6 +142,18 @@ class Admin extends CI_Controller
         }
     }
 
+    public function rolehapus($id)
+    {
+        $where = array(
+            'id' => $id
+        );
+
+        $this->m_data->delete_data($where, 'user_role');
+        // $this->db->delete('user', array('id' => $id));
+        $this->session->set_flashdata('sukses', 'Dihapus');
+        redirect('admin/role');
+    }
+
     public function user()
     {
         $data['title'] = 'User';

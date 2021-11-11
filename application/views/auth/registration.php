@@ -1,4 +1,4 @@
-<p class="text-lead text-white">Daftarkan email dan passwordmu disini untuk akses login ke Smartweb</p>
+<p class="text-lead text-white">Daftarkan email dan passwordmu disini untuk akses login ke Aplikasi</p>
 </div>
 </div>
 </div>

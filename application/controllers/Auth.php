@@ -52,15 +52,15 @@ class Auth extends CI_Controller
                         redirect('user');
                     }
                 } else {
-                    $this->session->set_flashdata('pesan', '<div class="badge bg-gradient-danger" role="alert">Wrong Password !</div>');
+                    $this->session->set_flashdata('sukses', '<div class="alert alert-danger" role="alert">Wrong Password !</div>');
                     redirect('auth');
                 }
             } else {
-                $this->session->set_flashdata('pesan', '<div class="badge bg-gradient-danger" role="alert">Email has not been Activated !</div>');
+                $this->session->set_flashdata('sukses', '<div class="alert alert-danger" role="alert">Email has not been Activated !</div>');
                 redirect('auth');
             }
         } else {
-            $this->session->set_flashdata('pesan', '<div class="badge bg-gradient-danger" role="alert">Email is not registered !</div>');
+            $this->session->set_flashdata('sukses', '<div class="alert alert-danger" role="alert">Email is not registered !</div>');
             redirect('auth');
         }
     }
@@ -231,10 +231,10 @@ class Auth extends CI_Controller
                 $this->db->insert('user_token', $user_token);
 
                 $this->_sendEmail($token, 'forgot');
-                $this->session->set_flashdata('pesan', '<div class="badge bg-gradient-success" role="alert">Please check your email to reset your password!</div>');
+                $this->session->set_flashdata('sukses', '<div class="alert alert-success" role="alert">Please check your email to reset your password!</div>');
                 redirect('auth');
             } else {
-                $this->session->set_flashdata('pesan', '<div class="badge bg-gradient-danger" role="alert">Email is not registered or activated!</div>');
+                $this->session->set_flashdata('sukses', '<div class="alert alert-danger" role="alert">Email is not registered or activated!</div>');
                 redirect('auth/forgotpassword');
             }
         }

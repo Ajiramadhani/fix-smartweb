@@ -14,7 +14,7 @@ class Produk extends CI_Controller
 
     function index()
     {
-        $data['title'] = 'Jenis Produk';
+        $data['title'] = 'Detail Produk';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         // $data['kategori'] = $this->m->get_kategori();
         $data['kategori'] = $this->db->get('kategori')->result();
@@ -45,7 +45,7 @@ class Produk extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $result['pesan'] = form_error('nama_produk|volume', '<div class="alert alert-danger" role="alert">', '</div>');
-            // $result['pesan'] = form_error('volume', '<div class="alert alert-danger" role="alert">', '</div>');
+            $result['pesan'] = form_error('volume', '<div class="alert alert-danger" role="alert">', '</div>');
             // $result['pesan'] = form_error('satuan', '<div class="alert alert-danger" role="alert">', '</div>');
             // $result['pesan'] = form_error('gambar', '<div class="alert alert-danger" role="alert">', '</div>');
             // $result['pesan'] = form_error('kategori_produk', '<div class="alert alert-danger" role="alert">', '</div>');
@@ -54,7 +54,7 @@ class Produk extends CI_Controller
             $config['allowed_types'] = 'gif|jpg|png|jpeg';
             $config['encrypt_name'] = TRUE;
             $config['file_name'] = uniqid();
-            $config['overwrite']     = TRUE;
+            $config['overwrite']     = FALSE;
 
             $this->load->library('upload', $config);
             if ($this->upload->do_upload("gambar")) {
@@ -69,16 +69,16 @@ class Produk extends CI_Controller
                     'nama_produk' => $nama_produk,
                     'volume' => $volume,
                     'satuan' => $satuan,
-                    'kategori_produk' => $kategori_produk,
                     'gambar' => $gambar,
+                    'kategori_produk' => $kategori_produk,
                 );
-
-                $this->m->tambahdata($data, 'produk');
-                $this->session->set_flashdata('flash', 'Ditambahkan');
+                // $this->m->tambahdata($data, 'produk');
+                // $this->session->set_flashdata('flash', 'Ditambahkan');
             }
+            var_dump($data);
         }
 
-        echo json_encode($result);
+        // echo json_encode($result);
     }
 
     public function ambilId()

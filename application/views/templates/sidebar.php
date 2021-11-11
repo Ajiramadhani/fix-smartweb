@@ -1,12 +1,22 @@
-<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
-    <div class="sidenav-header">
-        <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href="<?= base_url(); ?>">
-            <img src="<?= base_url('assets/'); ?>img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
-            <strong class="ms-1 font-weight-bold">IAUS!</strong>
-        </a>
-    </div>
-    <hr class="horizontal dark mt-0">
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-light sidebar sidebar-light shadow-sm accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center bg-gradient-primary text-white justify-content-center" href="<?= base_url(); ?>">
+        <div class="sidebar-brand-icon">
+            <img class="img-fluid img-thumbnail" width="50px" src="<?= base_url() ?>/assets/img/logo.png" alt="...">
+        </div>
+        <div class="sidebar-brand-text mx-3">IAUS!</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+
+
+    </li>
+
+    <!-- Query dari Menu -->
     <?php
     $role_id = $this->session->userdata('role_id');
     $queryMenu = "SELECT `user_menu`.`id`,`menu`
@@ -17,40 +27,60 @@
                     ";
     $menu = $this->db->query($queryMenu)->result_array();
     ?>
-    <div class="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
-        <?php foreach ($menu as $m) : ?>
-            <li class="nav-item mt-3">
-                <h5 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6"><?= $m['menu']; ?></h5>
-            </li>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <?php
-                    $menuId = $m['id'];
-                    $querySubMenu = "SELECT *
+
+    <!-- Looping Menu -->
+    <?php foreach ($menu as $m) : ?>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#<?= $m['menu']; ?>" aria-expanded="true" aria-controls="<?= $m['menu']; ?>">
+                <i class="fas fa-chevron-circle-down"></i>
+                <span><?= $m['menu']; ?></span>
+            </a>
+            <!-- <div class="sidebar-heading">
+            
+        </div> -->
+
+            <!-- Siapkan Sub-Menu Sesuai Menu -->
+            <?php
+            $menuId = $m['id'];
+            $querySubMenu = "SELECT *
                             FROM `user_sub_menu` JOIN `user_menu` 
                             ON `user_sub_menu`.`menu_id` = `user_menu`.`id`
                         WHERE `user_sub_menu`.`menu_id` = $menuId
                             AND `user_sub_menu`.`is_active` = 1
                         ";
-                    $subMenu = $this->db->query($querySubMenu)->result_array();
-                    ?>
+            $subMenu = $this->db->query($querySubMenu)->result_array();
+            ?>
+            <div id="<?= $m['menu']; ?>" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <? ($title == $sm['title']) ?>
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header"><?= $m['menu']; ?></h6>
                     <?php foreach ($subMenu as $sm) : ?>
-                        <?php if ($title == $sm['title']) : ?>
-                            <a class="nav-link active">
-                            <?php else : ?>
-                                <a class="nav-link" href="<?= base_url($sm['url']); ?>">
-                                <?php endif; ?>
-                                <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                    <i class="<?= $sm['icon']; ?>"></i>
-                                </div>
-                                <span class="nav-link-text ms-1"><?= $sm['title']; ?></span>
-                                </a>
-                            <?php endforeach; ?>
-                            <hr class="sidebar-divider mt-3">
-                        <?php endforeach; ?>
-                            </a>
-                </li>
-            </ul>
-    </div>
-</aside>
+                        <a class="collapse-item" href="<?= base_url($sm['url']); ?>">
+                            <i class="<?= $sm['icon']; ?>"></i>
+                            <?= $sm['title']; ?></a>
+
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('auth/logout'); ?>">
+                <i class="fas fa-fw fa-sign-out-alt"></i>
+                <span>Logout</span></a>
+        </li>
+
+
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+</ul>
 <!-- End of Sidebar -->
